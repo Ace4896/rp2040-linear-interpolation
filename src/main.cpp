@@ -50,13 +50,13 @@ void times_table()
 
     // If we were to peek the result without updating the accmulator, we can see the result
     // This will do 0 + 9 = 9
-    Serial.printf("Peek: 9 x 1 = %d\r\n", (int) interp0->peek[0]);
+    Serial.printf("Peek: 9 x 1 = %d\r\n", (int)interp0->peek[0]);
 
     // If we repeatedly pop the results (i.e. peek + update accumulator), we can see the values going up
     // It'll remain in this state until we re-initialise the interpolator
-    for(int i = 1; i <= 10; i++)
+    for (int i = 1; i <= 10; i++)
     {
-        Serial.printf("Pop: 9 x %d = %d\r\n", i, (int) interp0->pop[0]);
+        Serial.printf("Pop: 9 x %d = %d\r\n", i, (int)interp0->pop[0]);
     }
 }
 
@@ -83,8 +83,8 @@ void blending()
     interp_config_set_blend(&cfg, true);
     interp_set_config(interp0, 0, &cfg);
 
-    interp0->base[0] = 500;     // x0
-    interp0->base[1] = 1000;    // x1
+    interp0->base[0] = 500;  // x0
+    interp0->base[1] = 1000; // x1
 
     // Setup lane 1
     cfg = interp_default_config();
@@ -98,7 +98,7 @@ void blending()
         // 500 + (1000 - 500) * i / 6
         // One key restriction is that 'a' can't be 1
         // So we get something that is close, but not quite there
-        Serial.printf("%d\n", (int) interp0->peek[1]);
+        Serial.printf("%d\n", (int)interp0->peek[1]);
     }
 }
 
@@ -145,8 +145,8 @@ void adc_linear_interpolation()
     // The values will always be 99.6% of the expected value, but calculating in hardware is significantly faster
     // We can correct it by adding 1/256 of the approximated value, though there's still an error margin
     int software = expected_lo + (expected_hi - expected_lo) * (raw_val - calibrated_lo) / (calibrated_hi - calibrated_lo);
-    int hardware = (int) interp0->peek[1];
-    int hardware_corrected = hardware + (hardware >> 8);    // Add 1/256 of the approximate value
+    int hardware = (int)interp0->peek[1];
+    int hardware_corrected = hardware + (hardware >> 8); // Add 1/256 of the approximate value
 
     Serial.printf("Software: %d\r\n", software);
     Serial.printf("HW Accelerated: %d\r\n", hardware);
@@ -161,14 +161,13 @@ void adc_linear_interpolation()
         // expected_hi and expected_lo are compile-time constants, so we know this already
         // calibrated_hi and calibrated_lo is constant if manual calibration is used
         int soft = expected_lo + (expected_hi - expected_lo) * (adc_val - calibrated_lo) / (calibrated_hi - calibrated_lo);
-        int hw = (int) interp0 -> peek[1];
+        int hw = (int)interp0->peek[1];
         int hw_corrected = hw + (hw >> 8);
 
         Serial.printf("Interpolating %d (actual) between calibrated range (%d, %d) and mapping to expected range (%d, %d)\r\n",
-            adc_val,
-            calibrated_lo, calibrated_hi,
-            expected_lo, expected_hi
-        );
+                      adc_val,
+                      calibrated_lo, calibrated_hi,
+                      expected_lo, expected_hi);
 
         Serial.printf("- Software: %d\r\n", soft);
         Serial.printf("- HW Accelerated: %d\r\n", hw);
