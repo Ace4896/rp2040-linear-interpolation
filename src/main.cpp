@@ -108,8 +108,8 @@ void adc_linear_interpolation()
 
     // For my use case, I need to interpolate the ADC values to get them to match
     // The first step is determining the scale
-    // - Expected ADC Values: 1000 (4.0mm), 3000 (0.0mm)
-    // - Calibrated ADC Values: 900 (4.0mm), 2800 (0.0mm)
+    // - Expected ADC Range: [1000, 3000]
+    // - Calibrated ADC Range: [900, 2800]
     //
     // The expected scale is 3000 - 1000 = 2000 steps
     // The calibrated scale is 2800 - 900 = 1900 steps
