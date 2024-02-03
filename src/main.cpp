@@ -74,7 +74,7 @@ void blending()
     // a = Fractional value formed from least significant 8 bits of the lane 1 shift/mask value
     //
     // Some things to keep in mind:
-    // - PEEK0 / POP0 return the 8-bit value a (bits )
+    // - PEEK0 / POP0 return the 8-bit value a
     // - PEEK1 / POP1 return the linear interpolation between base 0 and base 1
     // - PEEK2 / POP2 do not include the lane 1 result in the addition (i.e. it returns Base 2 + lane 0 shift/mask value)
 
